@@ -1,5 +1,6 @@
 <script>
-  import { generateMaze, WALL, START, END } from "$lib/maze.js";
+  import { generateMaze, WALL, START, END, VISITED, SOLUTION } from "$lib/maze.js";
+  import { bfs } from "$lib/pathfinding"
   const ROWS = 20;
   const COLS = 20;
 
@@ -26,18 +27,54 @@
     endCell = null;
   }
 
+  function solve() {
+    if (!startCell || !endCell) return;
+    const result = bfs(grid, startCell, endCell)
+    
+    let i = 0
+    const interval = setInterval(() => {
+      if (i >= result.visited.length) {
+        clearInterval(interval)
+        let j = 0
+        const pathInterval = setInterval(() => {
+          if (j >= result.path.length) {
+            clearInterval(pathInterval)
+            return
+          }
+          const [r, c] = result.path[j]
+          if (grid[r][c] !== START && grid[r][c] !== END) {
+            grid[r][c] = SOLUTION
+            grid = grid
+          }
+          j++
+        }, 30)
+        return
+      }
+      const [r, c] = result.visited[i].split(',').map(Number)
+      if (grid[r][c] !== START && grid[r][c] !== END) {
+        grid[r][c] = VISITED
+        grid = grid
+      }
+      i++
+    }, 30)
+  }
+
   function cellType(r, c) {
     if (startCell && startCell[0] === r && startCell[1] === c) return "start";
     if (endCell && endCell[0] === r && endCell[1] === c) return "end";
     if (grid[r][c] === WALL) return "wall";
+    if (grid[r][c] === VISITED) return "visited";
+    if (grid[r][c] === SOLUTION) return "solution";
     return "path";
   }
+
 </script>
 
 <div class="container">
   <h1>Pathfinding Visualizer</h1>
   <div class="controls">
     <button onclick={regenerate}>Generate Maze</button>
+    <button onclick={solve}>Solve</button>
   </div>
   <div
     class="grid"
@@ -103,5 +140,11 @@
   }
   .end {
     background: #ef4444;
+  }
+  .visited {
+    background: #60a5fa
+  }
+  .solution {
+    background: #facc15
   }
 </style>
