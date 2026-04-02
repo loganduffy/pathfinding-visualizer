@@ -1,42 +1,12 @@
-# sv
+# How to Run
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Clone the repository with https with `git clone https://github.com/loganduffy/pathfinding-visualizer.git`
 
-## Creating a project
+cd into the root directory (`/pathfinding-visualizer`) and run `npm run dev`
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Algorithms Implemented
 
-```sh
-# create a new project
-npx sv create my-app
-```
+BFS (Breadth-First Search
 
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.13.0 create --template minimal --no-types --install npm pathfinding-visualizer
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+WIP:
+DFS, Dijkstra's, A* and more
