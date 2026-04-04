@@ -1,6 +1,9 @@
 <script>
   import { generateMaze, WALL, START, END, VISITED, SOLUTION } from "$lib/maze.js";
   import { bfs } from "$lib/pathfinding"
+
+  const algorithms = { bfs }
+  let selectedAlgorithm = $state("bfs")
   const ROWS = 20;
   const COLS = 20;
 
@@ -29,7 +32,7 @@
 
   function solve() {
     if (!startCell || !endCell) return;
-    const result = bfs(grid, startCell, endCell)
+    const result = algorithms[selectedAlgorithm](grid, startCell, endCell)
     
     let i = 0
     const interval = setInterval(() => {
@@ -74,6 +77,9 @@
   <h1>Pathfinding Visualizer</h1>
   <div class="controls">
     <button onclick={regenerate}>Generate Maze</button>
+    <select bind:value={selectedAlgorithm}>
+      <option value="bfs">BFS</option>
+    </select>
     <button onclick={solve}>Solve</button>
   </div>
   <div
@@ -117,6 +123,15 @@
 
   button:hover {
     background: #444;
+  }
+
+  select {
+    padding: 0.5rem 1.5rem;
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+    cursor: pointer;
+    border-radius: 4px;
   }
 
   .grid {
