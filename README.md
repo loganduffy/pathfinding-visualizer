@@ -1,12 +1,21 @@
+# Pathfinding Algorithm Visualizer
+
+This is a program that visualizes various pathfinding algorithms to show how they work within a real world scenario (maze)
+
+## What I Learned
+
+- WIP
+
 # How to Run
 
-Clone the repository with https with `git clone https://github.com/loganduffy/pathfinding-visualizer.git`
+1. Clone the repository with HTTPS
 
-cd into the root directory (`/pathfinding-visualizer`) and run `npm run dev`
+```
+git clone https://github.com/loganduffy/pathfinding-visualizer.git
+```
+2. Make sure you're in the root directory (```/pathfinding-visualizer```)
 
-## Algorithms Implemented
-
-BFS (Breadth-First Search
-
-WIP:
-DFS, Dijkstra's, A* and more
+4.  Run the program with
+```
+npm run dev
+```
