@@ -1,8 +1,8 @@
 <script>
-  import { generateMaze, WALL, START, END, VISITED, SOLUTION } from "$lib/maze.js";
-  import { bfs } from "$lib/pathfinding"
+  import { generateMaze, WALL, PATH, START, END, VISITED, SOLUTION } from "$lib/maze.js";
+  import { bfs, dfs, dijkstra, astar } from "$lib/pathfinding"
 
-  const algorithms = { bfs }
+  const algorithms = { bfs, dfs, dijkstra, astar }
   let selectedAlgorithm = $state("bfs")
   const ROWS = 20;
   const COLS = 20;
@@ -10,6 +10,14 @@
   let grid = $state(generateMaze(ROWS, COLS));
   let startCell = $state(null);
   let endCell = $state(null);
+
+  function clearVisualization() {
+    grid = grid.map(row =>
+      row.map(cell =>
+        cell === VISITED || cell === SOLUTION ? PATH : cell
+      )
+    )
+  }
 
   function handleClick(r, c) {
     if (grid[r][c] === WALL) return;
@@ -19,6 +27,7 @@
     } else if (!endCell) {
       endCell = [r, c];
     } else {
+      clearVisualization()
       startCell = [r, c];
       endCell = null;
     }
@@ -79,6 +88,9 @@
     <button onclick={regenerate}>Generate Maze</button>
     <select bind:value={selectedAlgorithm}>
       <option value="bfs">BFS</option>
+      <option value="dfs">DFS</option>
+      <option value="dijkstra">Dijkstra's</option>
+      <option value="astar">A*</option>
     </select>
     <button onclick={solve}>Solve</button>
   </div>
